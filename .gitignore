@@ -33,10 +33,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-<<<<<<< HEAD
-=======
 /.idea/*
 .idea/*
 /.idea/*
 /.idea/
->>>>>>> Prova-tecnica
+

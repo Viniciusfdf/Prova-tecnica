@@ -1,0 +1,11 @@
+<% content_for :title, "Editing pedido" %>
+
+
+<%= render "form", pedido: @pedido %>
+
+<br>
+
+<div>
+  <%= link_to "Ver pedido", @pedido %> |
+  <%= link_to "Voltara para pedidos", pedidos_path %>
+</div>

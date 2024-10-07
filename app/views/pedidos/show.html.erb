@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Pedido</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <!-- Mensagem de Notificação -->
+  <p class="text-success"><%= notice %></p>
+
+  <!-- Título do Pedido -->
+  <h1 class="mb-4">Detalhes do Pedido</h1>
+
+  <!-- Informações do Cliente e Total -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title">Informações do Pedido</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>Cliente:</strong> <%= @pedido.cliente.nome %></p>
+      <p><strong>Total:</strong> R$ <%= @pedido.total %></p>
+    </div>
+  </div>
+
+  <!-- Lista de Produtos -->
+  <h2>Produtos</h2>
+  <ul class="list-group mb-4">
+    <% @pedido.produtos.each do |produto| %>
+      <li class="list-group-item">
+        <strong>ID:</strong> <%= produto.id %> - <strong>Valor:</strong> R$ <%= produto.valor %>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Links de Navegação -->
+  <div>
+    <%= link_to 'Editar Pedido', edit_pedido_path(@pedido), class: 'btn btn-primary' %>
+    <%= link_to 'Voltar para Pedidos', pedidos_path, class: 'btn btn-secondary' %>
+    <%= button_to "Deletar este Pedido", @pedido, method: :delete, class: 'btn btn-danger' %>
+  </div>
+</div>
+
+</body>
+</html>

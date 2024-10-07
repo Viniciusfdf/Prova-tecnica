@@ -1,0 +1,11 @@
+<% content_for :title, "New pedido item" %>
+
+<h1>New pedido item</h1>
+
+<%= render "form", pedido_item: @pedido_item %>
+
+<br>
+
+<div>
+  <%= link_to "Back to pedido items", pedido_items_path %>
+</div>

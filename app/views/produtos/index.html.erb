@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS -->
+  <style>
+      /* Estilos básicos */
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+          background-color: #f8f9fa;
+      }
+
+      h1 {
+          color: #333;
+          text-align: center;
+          margin-bottom: 20px;
+      }
+
+      #produtos {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px;
+      }
+
+      .produto-card {
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          width: 250px; /* Largura fixa para os cartões */
+          text-align: center;
+          transition: transform 0.2s;
+          padding: 10px; /* Adicionando um pouco de preenchimento */
+      }
+
+      .produto-card:hover {
+          transform: scale(1.05);
+      }
+
+      .produto-title {
+          font-size: 18px;
+          font-weight: bold;
+          margin: 10px 0;
+      }
+
+      .produto-description {
+          font-size: 14px;
+          color: #666;
+          padding: 0 10px;
+      }
+
+      .produto-price {
+          font-size: 16px;
+          color: #28a745;
+          margin: 10px 0;
+      }
+
+      .produto-actions {
+          margin: 10px 0;
+      }
+
+      .btn {
+          padding: 10px 15px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          text-decoration: none;
+          color: white;
+      }
+
+      .btn-show {
+          background-color: #007bff;
+      }
+
+      .btn-show:hover {
+          background-color: #0056b3;
+      }
+
+      .btn-new {
+          display: block;
+          margin: 20px auto;
+          padding: 10px 15px;
+          background-color: #28a745;
+          color: white;
+          text-align: center;
+          border-radius: 4px;
+          text-decoration: none;
+      }
+
+      .btn-new:hover {
+          background-color: #218838;
+      }
+
+      .notice {
+          color: green;
+          text-align: center;
+          font-weight: bold;
+      }
+  </style>
+
+
+</head>
+
+<body>
+<p class="notice"><%= notice %></p>
+
+<% content_for :title, "Produtos" %>
+
+<h1>Produtos</h1>
+
+<div id="produtos">
+  <% @produtos.each do |produto| %>
+    <div class="produto-card">
+      <p class="produto-description"><%= produto.descricao %></p>
+      <span class="produto-price">R$ <%= number_to_currency(produto.valor) %></span>
+      <div class="produto-actions">
+        <%= link_to "Ver Produto", produto, class: "btn btn-show" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "Novo Produto", new_produto_path, class: "btn-new" %>
+</body>
+</html>

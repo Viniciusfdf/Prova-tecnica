@@ -1,0 +1,2 @@
+module PedidoItemsHelper
+end

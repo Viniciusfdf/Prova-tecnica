@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      header {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+      }
+      header h1 {
+          display: inline;
+      }
+      nav {
+          float: right;
+      }
+      nav a {
+          color: white;
+          text-decoration: none;
+          padding: 10px;
+      }
+      nav a:hover {
+          text-decoration: underline;
+      }
+      .container {
+          padding: 20px;
+      }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Clientes</h1>
+  <nav>
+    <%= link_to 'Ir para Pedidos', pedidos_path , class: 'btn btn-light' %>
+    <%= link_to 'Ir para Produtos', produtos_path , class: 'btn btn-light' %>
+  </nav>
+</header>
+
+<div class="container">
+  <% if notice %>
+    <p style="color: green"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Clientes" %>
+
+  <h2>Lista de Clientes</h2>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>Telefone</th>
+      <th>Ativo</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @clientes.each do |cliente| %>
+      <tr>
+        <td><%= cliente.nome %></td>
+        <td><%= cliente.data_nascimento.strftime("%d/%m/%Y") if cliente.data_nascimento.present? %></td>
+        <td><%= cliente.telefone %></td>
+        <td><%= cliente.ativo ? 'Sim' : 'Não' %></td>
+        <td>
+          <%= link_to "Mostrar Cliente", cliente, class: "btn btn-info" %>
+          <%= link_to "Excluir", cliente_path(cliente), method: :delete, data: { confirm: "Tem certeza que deseja excluir este cliente?" }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Novo Cliente', new_cliente_path, class: "btn btn-primary" %>
+</div>
+
+</body>
+</html>

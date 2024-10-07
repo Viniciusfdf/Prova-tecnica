@@ -1,20 +1,24 @@
-<!-- app/views/welcome/index.html.erb -->
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bem-vindo</title>
   <style>
       body {
           font-family: Arial, sans-serif;
           margin: 0;
           padding: 0;
-          background: linear-gradient(135deg, #00d0ff 30%, #7300ff 90%); /* Gradiente de vermelho para laranja */
+          background: linear-gradient(135deg, #00d0ff 30%, #7300ff 90%);
           background-size: cover;
-          color: #fff; /* Cor do texto */
-          height: 100vh; /* Faz com que o fundo cubra toda a altura da tela */
+          color: #fff;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
       }
 
-      /* Adicionando um padrão geométrico */
       body::before {
           content: "";
           position: absolute;
@@ -22,47 +26,86 @@
           left: 0;
           width: 100%;
           height: 100%;
-          background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Padrão geométrico discreto */
-          opacity: 0.3; /* Deixa o padrão mais suave */
-          z-index: -1; /* Mantém o padrão atrás de todo o conteúdo */
+          background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+          opacity: 0.3;
+          z-index: -1;
       }
 
-      .container {
-          max-width: 600px;
-          margin: 50px auto;
-          padding: 20px;
-          background: rgba(255, 255, 255, 0.9); /* Fundo branco translúcido para destacar o conteúdo */
-          border-radius: 8px;
-          box-shadow: 0 0 215px rgba(0, 0, 0, 0.2); /* Sombra suave */
-          z-index: 1;
-          text-align: center;
-      }
       h1 {
           text-align: center;
-          color: #000000; /* Cor do texto do título */
+          color: #fff;
+          margin-bottom: 50px;
+          font-size: 2.5em;
       }
-      .link {
-          display: block;
-          margin: 15px 0;
-          padding: 10px;
+
+      .banner-container {
+          display: flex;
+          justify-content: space-between;
+          width: 90%;
+          max-width: 1200px;
+          margin: 0 auto;
+      }
+
+      .banner {
+          flex: 1;
+          margin: 0 10px;
+          background-color: rgba(255, 255, 255, 0.9);
+          color: #000;
           text-align: center;
-          color: #000000;
-          background-color: #00daff; /* Cor do botão */
+          padding: 40px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          transition: transform 0.3s, background-color 0.3s;
           text-decoration: none;
+      }
+
+      .banner:hover {
+          background-color: #00df13;
+          transform: scale(1.05);
+      }
+
+      .banner p {
+          margin: 0;
+          font-size: 1.2em;
+      }
+
+      .banner button {
+          margin-top: 20px;
+          padding: 10px 20px;
+          font-size: 16px;
+          color: #fff;
+          background-color: #007bff;
+          border: none;
           border-radius: 5px;
+          cursor: pointer;
           transition: background-color 0.3s;
       }
-      .link:hover {
-          background-color: #00df13; /* Cor ao passar o mouse */
+
+      .banner button:hover {
+          background-color: #0056b3;
       }
   </style>
 </head>
 <body>
-<div class="container">
-  <h1>Bem-vindo à Home Page</h1>
-  <%= link_to 'Clientes', clientes_path, class: 'link' %>
-  <%= link_to 'Produtos', produtos_path, class: 'link' %>
-  <%= link_to 'Pedidos', pedidos_path, class: 'link' %>
+
+<h1>Bem-vindo à Home Page</h1>
+
+<div class="banner-container">
+  <%= link_to clientes_path, class: 'banner' do %>
+    <p>Clientes</p>
+    <button>Ver mais</button>
+  <% end %>
+
+  <%= link_to produtos_path, class: 'banner' do %>
+    <p>Produtos</p>
+    <button>Ver mais</button>
+  <% end %>
+
+  <%= link_to pedidos_path, class: 'banner' do %>
+    <p>Pedidos</p>
+    <button>Ver mais</button>
+  <% end %>
 </div>
+
 </body>
 </html>

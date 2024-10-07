@@ -1,10 +1,11 @@
 class PedidosController < ApplicationController
-  before_action :set_pedido, only: [:show, :edit, :create, :update, :destroy]
+  before_action :set_pedido, only: [:show, :edit, :update, :destroy]
   before_action :load_clientes_and_produtos, only: [:new, :edit, :create, :update]
 
   # GET /pedidos or /pedidos.json
   def index
     @pedidos = Pedido.includes(:cliente, :produtos).all
+    @pedidos = Pedido.includes(:cliente).order(:id) # Isso ordena os pedidos pelo ID
   end
 
   # GET /pedidos/1 or /pedidos/1.json
@@ -16,7 +17,7 @@ class PedidosController < ApplicationController
   def new
     @pedido = Pedido.new
     @clientes = Cliente.where(ativo: true) # Exibir apenas clientes ativos
-    @produtos = Produto.where(ativo: true)       # Exibir apenas produtoutos ativos
+    # @produtos = Produto.where(ativo: true)       # Exibir apenas produtoutos ativos
   end
 
   # GET /pedidos/1/edit
@@ -27,15 +28,14 @@ class PedidosController < ApplicationController
   def create
     @pedido = Pedido.new(pedido_params)
 
-    if @pedido.save
-      # Salvar os itens do pedido
-      if params[:pedido][:produto_ids]
-        params[:pedido][:produto_ids].each do |produto_id|
-        end
+    respond_to do |format|
+      if @pedido.save
+        format.html { redirect_to @pedido, notice: "Cliente was successfully created." }
+        format.json { render :show, status: :created, location: @pedido }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @pedido.errors, status: :unprocessable_entity }
       end
-      redirect_to @pedido, notice: 'Pedido criado com sucesso.'
-    else
-      render :new
     end
   end
 
@@ -43,9 +43,9 @@ class PedidosController < ApplicationController
   def update
     @pedido = Pedido.find(params[:id])
 
-    if @pedido.update(pedido_params)
-      # Atualiza os produtos associados
-      @pedido.produtos.clear # Limpa os produtos anteriores
+    produtos_ids = @pedido.produtos.pluck(:id)
+
+    if @pedido.update(pedido_params.except(:produtos_ids))
 
       if params[:pedido][:produtos_ids].present?
         params[:pedido][:produtos_ids].each do |produto_id|
@@ -82,7 +82,7 @@ class PedidosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def pedido_params
-    params.require(:pedido).permit(:cliente_id, :total, produtos_ids: [])
+    params.require(:pedido).permit(:cliente_id, :total)
   end
 
 end

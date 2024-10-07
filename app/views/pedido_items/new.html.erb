@@ -1,11 +1,65 @@
-<% content_for :title, "New pedido item" %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "Novo Item de Pedido" %></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 0;
+      }
+      header {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+      }
+      h1 {
+          margin-top: 20px;
+          color: #007bff;
+      }
+      .container {
+          padding: 20px;
+      }
+      .btn-back {
+          margin-top: 20px;
+      }
+      footer {
+          background-color: #007bff;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+      }
+  </style>
+</head>
+<body>
 
-<h1>New pedido item</h1>
+<header>
+  <h1><%= content_for?(:title) ? yield(:title) : "Novo Item de Pedido" %></h1>
+</header>
 
-<%= render "form", pedido_item: @pedido_item %>
+<div class="container">
+  <h1>Novo Item de Pedido</h1>
 
-<br>
+  <!-- Renderiza o formulário de item do pedido -->
+  <%= render "form", pedido_item: @pedido_item %>
 
-<div>
-  <%= link_to "Back to pedido items", pedido_items_path %>
+  <!-- Link para voltar para os itens do pedido -->
+  <div class="btn-back">
+    <%= link_to "Voltar para Itens do Pedido", pedido_pedido_items_path, class: "btn btn-secondary" %>
+  </div>
 </div>
+
+<footer>
+  <p>&copy; <%= Time.now.year %> Sistema de Pedidos</p>
+</footer>
+
+</body>
+</html>

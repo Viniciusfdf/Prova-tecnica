@@ -41,8 +41,8 @@
 <header>
   <h1>Pedidos</h1>
   <nav>
-    <%= link_to 'Ir para Clientes', clientes_path , class: 'btn btn-light' %>
-    <%= link_to 'Ir para Produtos', produtos_path , class: 'btn btn-light' %>
+    <%= link_to 'Ir para Clientes', clientes_path, class: 'btn btn-light' %>
+    <%= link_to 'Ir para Produtos', produtos_path, class: 'btn btn-light' %>
   </nav>
 </header>
 
@@ -51,15 +51,13 @@
     <p style="color: green"><%= notice %></p>
   <% end %>
 
-  <% content_for :title, "Pedidos" %>
-
   <h2>Lista de Pedidos</h2>
 
   <table class="table table-striped">
     <thead>
     <tr>
       <th>Cliente</th>
-      <th>Produto</th>
+      <th>ID do Pedido</th>
       <th>Data</th>
       <th>Total</th>
       <th>Ações</th>
@@ -69,19 +67,12 @@
     <% @pedidos.each do |pedido| %>
       <tr>
         <td><%= pedido.cliente.nome %></td>
-        <td>
-          <% if pedido.produtos.any? %>
-            <% pedido.produtos.each do |produto| %>
-              <p><%= produto.descricao %> - R$ <%= produto.valor %></p>
-            <% end %>
-          <% else %>
-            <p>Sem produtos</p>
-          <% end %>
-        </td>
+        <td><%= pedido.id %></td>
         <td><%= pedido.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-        <td>R$ <%= pedido.total %></td>
+        <td>R$ <%= pedido.valor_total %></td>
+
         <td>
-          <%= link_to 'Editar', edit_pedido_path(pedido), class: 'btn btn-primary' %>
+          <%= link_to 'Ver pedido', pedido_path(pedido), class: 'btn btn-primary' %>
           <%= link_to 'Excluir', pedido_path(pedido), method: :delete, data: { confirm: "Tem certeza que deseja excluir este pedido?" }, class: 'btn btn-danger' %>
         </td>
       </tr>

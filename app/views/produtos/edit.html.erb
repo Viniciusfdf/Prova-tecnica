@@ -1,12 +1,66 @@
-<% content_for :title, "Editing produto" %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "Editar Produto" %></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f8f9fa;
+          margin: 0;
+          padding: 0;
+      }
+      header {
+          background-color: #0fc639;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+      }
+      h1 {
+          margin-top: 20px;
+          color: #0fc639;
+      }
+      .container {
+          padding: 20px;
+      }
+      .btn-group {
+          margin-top: 20px;
+      }
+      footer {
+          background-color: #0fc639;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+      }
+  </style>
+</head>
+<body>
 
-<h1>Editing produto</h1>
+<header>
+  <h1><%= content_for?(:title) ? yield(:title) : "Editar Produto" %></h1>
+</header>
 
-<%= render "form", produto: @produto %>
+<div class="container">
+  <h1>Editando Produto</h1>
 
-<br>
+  <!-- Renderiza o formulário de edição do produto -->
+  <%= render "form", produto: @produto %>
 
-<div>
-  <%= link_to "Show this produto", @produto %> |
-  <%= link_to "Back to produtos", produtos_path %>
+  <!-- Links para exibir o produto ou voltar para a lista -->
+  <div class="btn-group">
+    <%= link_to "Visualizar Produto", @produto, class: "btn btn-info" %>
+    <%= link_to "Voltar para Produtos", produtos_path, class: "btn btn-secondary" %>
+  </div>
 </div>
+
+<footer>
+  <p>&copy; <%= Time.now.year %> Sistema de Produtos</p>
+</footer>
+
+</body>
+</html>

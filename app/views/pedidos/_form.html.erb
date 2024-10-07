@@ -16,78 +16,11 @@
       <%= form.collection_select :cliente_id, @clientes, :id, :nome, { prompt: "Selecione um Cliente" }, { class: 'form-select' } %>
     </div>
 
-    <div class="mb-3 d-none">
-      <%= form.label :produto_ids, "Produtos", class: "form-label" %>
-      <div class="input-group">
-        <%= form.select :produto_ids, options_for_select([], selected: []), {}, { multiple: true, id: 'produto_select', class: 'form-select', style: 'max-height: 150px; overflow-y: auto;' } %>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Produto</th>
-          <th>Valor</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @produtos.each do |produto| %>
-          <tr class="produto-row" data-id="<%= produto.id %>" data-nome="<%= produto.descricao %>" data-valor="<%= produto.valor %>">
-            <td><%= produto.descricao %></td>
-            <td>R$ <%= produto.valor %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="selected-products mb-3">
-      <h4>Produtos Selecionados:</h4>
-      <ul id="selected_product_list" class="list-group">
-        <!-- Lista de produtos selecionados aparecerá aqui -->
-      </ul>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :total, "Total", class: "form-label" %>
-      <%= form.number_field :total, step: 0.01, readonly: true, id: 'total_value', class: 'form-control' %>
-    </div>
-
     <div class="actions">
       <%= form.submit class: 'btn btn-primary' %>
     </div>
   <% end %>
 
-  <script>
-      document.querySelectorAll('.produto-row').forEach(row => {
-          row.addEventListener('click', () => {
-              const produtoId = row.getAttribute('data-id');
-              const produtoNome = row.getAttribute('data-nome');
-              const produtoValor = row.getAttribute('data-valor');
-
-              // Adiciona o produto ao campo de seleção se não estiver vazio
-              if (produtoId) {
-                  const select = document.getElementById('produto_select');
-                  const option = new Option(`${produtoNome} - R$ ${produtoValor}`, produtoId, true, true);
-                  select.add(option);
-
-                  // Atualiza a lista de produtos selecionados
-                  const selectedProductList = document.getElementById('selected_product_list');
-                  const listItem = document.createElement('li');
-                  listItem.classList.add('list-group-item');
-                  listItem.textContent = `${produtoNome} - R$ ${produtoValor}`;
-                  selectedProductList.appendChild(listItem);
-
-                  // Atualiza o valor total
-                  let total = parseFloat(document.getElementById('total_value').value) || 0;
-                  total += parseFloat(produtoValor);
-                  document.getElementById('total_value').value = total.toFixed(2);
-              }
-          });
-      });
-  </script>
 </div>
-
 </body>
 </html>

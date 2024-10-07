@@ -13,6 +13,23 @@
           background-color: #f8f9fa;
       }
 
+      header {
+          background-color: #0fc639;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+      }
+
+      header nav a {
+          color: white;
+          margin: 0 15px;
+          text-decoration: none;
+      }
+
+      header nav a:hover {
+          text-decoration: underline;
+      }
+
       h1 {
           color: #333;
           text-align: center;
@@ -102,11 +119,17 @@
           font-weight: bold;
       }
   </style>
-
-
 </head>
 
 <body>
+
+<header>
+  <nav>
+    <%= link_to 'Ir para Clientes', clientes_path, class: 'btn btn-light' %>
+    <%= link_to 'Ir para Pedidos', pedidos_path, class: 'btn btn-light' %>
+  </nav>
+</header>
+
 <p class="notice"><%= notice %></p>
 
 <% content_for :title, "Produtos" %>

@@ -21,7 +21,7 @@
     </div>
     <div class="card-body">
       <p><strong>Cliente:</strong> <%= @pedido.cliente.nome %></p>
-      <p><strong>Total:</strong> R$ <%= @pedido.total %></p>
+      <p><strong>Total:</strong> R$ <%= @pedido.valor_total %></p>
     </div>
   </div>
 
@@ -30,14 +30,15 @@
   <ul class="list-group mb-4">
     <% @pedido.produtos.each do |produto| %>
       <li class="list-group-item">
-        <strong>ID:</strong> <%= produto.id %> - <strong>Valor:</strong> R$ <%= produto.valor %>
+        <strong>ID:</strong> <%= produto.id %> - <strong>Nome:</strong> <%= produto.descricao %> - <strong>Valor:</strong> R$ <%= produto.valor %>
       </li>
     <% end %>
   </ul>
 
   <!-- Links de Navegação -->
   <div>
-    <%= link_to 'Editar Pedido', edit_pedido_path(@pedido), class: 'btn btn-primary' %>
+    <%= link_to 'Novo Item', new_pedido_pedido_item_path(@pedido), class: 'btn btn-primary' %>
+    <%= link_to 'Editar Cliente', edit_pedido_path(@pedido), class: 'btn btn-primary' %>
     <%= link_to 'Voltar para Pedidos', pedidos_path, class: 'btn btn-secondary' %>
     <%= button_to "Deletar este Pedido", @pedido, method: :delete, class: 'btn btn-danger' %>
   </div>

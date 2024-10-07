@@ -1,5 +1,6 @@
 class PedidoItemsController < ApplicationController
   before_action :set_pedido_item, only: %i[ show edit update destroy ]
+  before_action :set_pedido
 
   # GET /pedido_items or /pedido_items.json
   def index
@@ -22,10 +23,10 @@ class PedidoItemsController < ApplicationController
   # POST /pedido_items or /pedido_items.json
   def create
     @pedido_item = PedidoItem.new(pedido_item_params)
-
+    @pedido_item.pedido = @pedido
     respond_to do |format|
       if @pedido_item.save
-        format.html { redirect_to @pedido_item, notice: "Pedido item was successfully created." }
+        format.html { redirect_to @pedido, notice: "Pedido item was successfully created." }
         format.json { render :show, status: :created, location: @pedido_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,4 +68,7 @@ class PedidoItemsController < ApplicationController
     def pedido_item_params
       params.require(:pedido_item).permit(:produto_id, :pedido_id)
     end
+  def set_pedido
+    @pedido = Pedido.find(params[:pedido_id])
+  end
 end
